@@ -1,1 +1,198 @@
-# Tasks1
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中回忆照片墙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Srgoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #6cc8f2;
+            padding: 20px;
+        }
+        .container {
+           max-width: 1200px;
+           margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #8df0a8;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-family: sans-serif;
+            font-size: 2.5rem;
+            color: #ba61f1;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-style: italic;
+            color: #333;
+        }
+        .photo-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            background-color: aquamarine;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .photo{
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background-color: azure;
+        }
+        .photo:nth-child(2) {
+            transform: rotate(-2deg);
+        }
+         .photo:nth-child(4) {
+            transform: rotate(1deg);
+        }
+        .photo:nth-child(5) {
+            transform: rotate(-1.5deg);
+        }
+         .photo:nth-child(7) {
+            transform: rotate(2.5deg);
+        }
+         .photo:nth-child(8) {
+            transform: rotate(-1deg);
+        }
+        .photo:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index:10;
+        }
+        .photo img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid #e0d4b8;
+        }
+        .caption{
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            background-color: #555;
+        }
+        @media (max-width: 768px) {
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            h1{
+                font-size: 2rem;
+            }
+        }
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+          border: 5px solid white;
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s ;
+        }
+        .close-modal:hover {
+            color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>小小相机，大大回忆</h1>
+            <p class="subtitle">——致我们逝去的高中时光（2021-2024）</p>
+        </header>
+        <div class="photo-wall">
+            <div class="photo" onclick="openModal('photo1')">
+                <img src="be1c2e2b85cff0accde140775c5e6498.jpg" alt="我们的合影">
+                <div class="caption">我们的合影</div>
+            </div>
+            <div class="photo" onclick="openModal(photo2)">
+                <img src="别管，我在睡觉.JPG" alt="我在睡觉">
+                <div class="caption">别管，我在睡觉</div>
+            </div>
+            <div class="photo" onclick="openModal(photo3)">
+                <img src="猪眼神.JPG" alt="猪眼神">
+                <div class="caption">这什么眼神</div>
+        </div>
+            <div class="photo" onclick="openModal(photo4)">
+                <img src="别说我黑她.JPG" alt="别说我黑她">
+                <div class="caption">别说我黑她</div>
+            </div>
+            <div class="photo" onclick="openModal(photo5)">
+                <img src="emo照片.JPG" alt="出自谁手">
+                <div class="caption">出自谁手</div>
+            </div>
+            <div class="photo" onclick="openModal(photo6)">
+                <img src="DSCN1583.JPG" alt="美女合照">
+                <div class="caption">美女合照</div>
+            </div>
+            <div class="photo" onclick="openModal(photo7)">
+                <img src="秀秀俺的大长腿.JPG" alt="秀秀俺的大长腿">
+                <div class="caption">秀秀俺的大长腿</div>
+                </div>
+            <div class="photo" onclick="openModal(photo8)">
+                <img src="弄头发.JPG" alt="为毕业照做准备？">
+                <div class="caption">为毕业照做准备？</div>
+         
+            </div>
+            
+    </div>
+    <div id="photo-Modal" class="photo-modal" >
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modal-image" class="modal-content" src="" >
+    </div>
+    <script>
+        const modal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImg');
+        function openModal(photoId) {
+            const imgSrc = event.target.parentElement.querySelector('img').src;
+            modalImage.src = imgSrc;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 禁用滚动
+        }
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 启用滚动
+        }
+        window.onclick=function(event){
+            if(event.target===modal){
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
